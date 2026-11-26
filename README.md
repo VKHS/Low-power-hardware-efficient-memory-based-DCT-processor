@@ -34,7 +34,7 @@ the **16-point extension**, golden test vectors, figures and a smoke test.
 **Contents** · [Quick start](#quick-start) · [Algorithm](#algorithm) ·
 [Architecture](#architecture) · [Schedule](#schedule-and-memory) ·
 [Fixed point](#fixed-point-design) · [CORDIC unit](#central-cordic-unit) ·
-[Results](#results) · [2-D](#8x8-2-d-processor) · [16-point](#16-point-extension) ·
+[Results](#results) · [2-D](#88-2-d-processor) · [16-point](#16-point-extension) ·
 [Verification](#verification) · [Implementations](#implementations) ·
 [Layout](#repository-layout) · [Citation](#citation)
 
