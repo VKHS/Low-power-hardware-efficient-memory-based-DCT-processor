@@ -1,0 +1,954 @@
+{
+  "period": 8,
+  "bf_latency": 1,
+  "mr_latency": 2,
+  "t0": 15,
+  "op_times": {
+    "S0": 1,
+    "S1": 3,
+    "S2": 5,
+    "S3": 7,
+    "T0": 4,
+    "T1": 8,
+    "T2": 4,
+    "T3": 8,
+    "U0": 10,
+    "U1": 9,
+    "U2": 11,
+    "U3": 10,
+    "V0": 11,
+    "V1": 12,
+    "W1": 14,
+    "W2": 13,
+    "W3": 16
+  },
+  "bf_units": {
+    "S0": 0,
+    "S1": 0,
+    "S2": 0,
+    "S3": 0,
+    "T0": 0,
+    "T1": 0,
+    "T2": 1,
+    "T3": 1,
+    "U0": 0,
+    "U1": 1,
+    "U2": 1,
+    "U3": 1
+  },
+  "nregs": {
+    "IB": 1,
+    "BM": 8,
+    "MM": 5,
+    "OB": 5
+  },
+  "maxlive": {
+    "IB": 1,
+    "BM": 8,
+    "MM": 5,
+    "OB": 5
+  },
+  "values": {
+    "x0": {
+      "name": "x0",
+      "bank": "IB",
+      "avail": 1,
+      "last": 1,
+      "reg": 0
+    },
+    "x2": {
+      "name": "x2",
+      "bank": "IB",
+      "avail": 3,
+      "last": 3,
+      "reg": 0
+    },
+    "x4": {
+      "name": "x4",
+      "bank": "IB",
+      "avail": 5,
+      "last": 5,
+      "reg": 0
+    },
+    "x6": {
+      "name": "x6",
+      "bank": "IB",
+      "avail": 7,
+      "last": 7,
+      "reg": 0
+    },
+    "L0": {
+      "name": "L0",
+      "bank": "BM",
+      "avail": 2,
+      "last": 4,
+      "reg": 1
+    },
+    "H0": {
+      "name": "H0",
+      "bank": "BM",
+      "avail": 2,
+      "last": 4,
+      "reg": 0
+    },
+    "L1": {
+      "name": "L1",
+      "bank": "BM",
+      "avail": 4,
+      "last": 4,
+      "reg": 3
+    },
+    "H1": {
+      "name": "H1",
+      "bank": "BM",
+      "avail": 4,
+      "last": 4,
+      "reg": 2
+    },
+    "L2": {
+      "name": "L2",
+      "bank": "BM",
+      "avail": 6,
+      "last": 8,
+      "reg": 5
+    },
+    "H2": {
+      "name": "H2",
+      "bank": "BM",
+      "avail": 6,
+      "last": 8,
+      "reg": 1
+    },
+    "L3": {
+      "name": "L3",
+      "bank": "BM",
+      "avail": 8,
+      "last": 8,
+      "reg": 7
+    },
+    "H3": {
+      "name": "H3",
+      "bank": "BM",
+      "avail": 8,
+      "last": 8,
+      "reg": 6
+    },
+    "LL0": {
+      "name": "LL0",
+      "bank": "BM",
+      "avail": 5,
+      "last": 10,
+      "reg": 4
+    },
+    "LH0": {
+      "name": "LH0",
+      "bank": "BM",
+      "avail": 5,
+      "last": 9,
+      "reg": 0
+    },
+    "LL1": {
+      "name": "LL1",
+      "bank": "BM",
+      "avail": 9,
+      "last": 10,
+      "reg": 7
+    },
+    "LH1": {
+      "name": "LH1",
+      "bank": "BM",
+      "avail": 9,
+      "last": 9,
+      "reg": 1
+    },
+    "HH0": {
+      "name": "HH0",
+      "bank": "BM",
+      "avail": 5,
+      "last": 10,
+      "reg": 2
+    },
+    "HL0": {
+      "name": "HL0",
+      "bank": "BM",
+      "avail": 5,
+      "last": 11,
+      "reg": 3
+    },
+    "HH1": {
+      "name": "HH1",
+      "bank": "BM",
+      "avail": 9,
+      "last": 10,
+      "reg": 5
+    },
+    "HL1": {
+      "name": "HL1",
+      "bank": "BM",
+      "avail": 9,
+      "last": 11,
+      "reg": 6
+    },
+    "Y0": {
+      "name": "Y0",
+      "bank": "OB",
+      "avail": 11,
+      "last": 15,
+      "reg": 0
+    },
+    "D": {
+      "name": "D",
+      "bank": "MM",
+      "avail": 11,
+      "last": 11,
+      "reg": 2
+    },
+    "Sp": {
+      "name": "Sp",
+      "bank": "MM",
+      "avail": 10,
+      "last": 11,
+      "reg": 1
+    },
+    "Dp": {
+      "name": "Dp",
+      "bank": "MM",
+      "avail": 10,
+      "last": 13,
+      "reg": 0
+    },
+    "Y4": {
+      "name": "Y4",
+      "bank": "OB",
+      "avail": 12,
+      "last": 19,
+      "reg": 1
+    },
+    "DB": {
+      "name": "DB",
+      "bank": "MM",
+      "avail": 12,
+      "last": 12,
+      "reg": 1
+    },
+    "SBp": {
+      "name": "SBp",
+      "bank": "MM",
+      "avail": 11,
+      "last": 12,
+      "reg": 4
+    },
+    "DBp": {
+      "name": "DBp",
+      "bank": "MM",
+      "avail": 11,
+      "last": 13,
+      "reg": 3
+    },
+    "A3": {
+      "name": "A3",
+      "bank": "MM",
+      "avail": 13,
+      "last": 16,
+      "reg": 2
+    },
+    "A1": {
+      "name": "A1",
+      "bank": "MM",
+      "avail": 13,
+      "last": 14,
+      "reg": 1
+    },
+    "B3": {
+      "name": "B3",
+      "bank": "MM",
+      "avail": 14,
+      "last": 14,
+      "reg": 3
+    },
+    "B1": {
+      "name": "B1",
+      "bank": "MM",
+      "avail": 14,
+      "last": 16,
+      "reg": 0
+    },
+    "Y7": {
+      "name": "Y7",
+      "bank": "OB",
+      "avail": 16,
+      "last": 22,
+      "reg": 4
+    },
+    "Y1": {
+      "name": "Y1",
+      "bank": "OB",
+      "avail": 16,
+      "last": 16,
+      "reg": 0
+    },
+    "Y6": {
+      "name": "Y6",
+      "bank": "OB",
+      "avail": 15,
+      "last": 21,
+      "reg": 3
+    },
+    "Y2": {
+      "name": "Y2",
+      "bank": "OB",
+      "avail": 15,
+      "last": 17,
+      "reg": 2
+    },
+    "Y5": {
+      "name": "Y5",
+      "bank": "OB",
+      "avail": 18,
+      "last": 20,
+      "reg": 2
+    },
+    "Y3": {
+      "name": "Y3",
+      "bank": "OB",
+      "avail": 18,
+      "last": 18,
+      "reg": 0
+    }
+  },
+  "phase_table": [
+    {
+      "phase": 0,
+      "ib_w": 0,
+      "bf": [
+        {
+          "op": "T1",
+          "ins": [
+            "L2",
+            "L3"
+          ],
+          "outs": [
+            "LL1",
+            "LH1"
+          ],
+          "src": [
+            [
+              "BM",
+              5
+            ],
+            [
+              "BM",
+              7
+            ]
+          ],
+          "dst": [
+            [
+              "BM",
+              7
+            ],
+            [
+              "BM",
+              1
+            ]
+          ],
+          "stage": 2
+        },
+        {
+          "op": "T3",
+          "ins": [
+            "H2",
+            "H3"
+          ],
+          "outs": [
+            "HH1",
+            "HL1"
+          ],
+          "src": [
+            [
+              "BM",
+              1
+            ],
+            [
+              "BM",
+              6
+            ]
+          ],
+          "dst": [
+            [
+              "BM",
+              5
+            ],
+            [
+              "BM",
+              6
+            ]
+          ],
+          "stage": 2
+        }
+      ],
+      "mr_issue": {
+        "op": "W3",
+        "k": 3,
+        "ins": [
+          "B1",
+          "A3"
+        ],
+        "src": [
+          [
+            "MM",
+            0
+          ],
+          [
+            "MM",
+            2
+          ]
+        ]
+      },
+      "mr_done": null,
+      "ob_r": 0,
+      "out_k": 1
+    },
+    {
+      "phase": 1,
+      "ib_w": null,
+      "bf": [
+        {
+          "op": "S0",
+          "ins": [
+            "x0",
+            "x1"
+          ],
+          "outs": [
+            "L0",
+            "H0"
+          ],
+          "src": [
+            [
+              "IB",
+              0
+            ],
+            [
+              "IN",
+              null
+            ]
+          ],
+          "dst": [
+            [
+              "BM",
+              1
+            ],
+            [
+              "BM",
+              0
+            ]
+          ],
+          "stage": 1
+        },
+        {
+          "op": "U1",
+          "ins": [
+            "LH0",
+            "LH1"
+          ],
+          "outs": [
+            "Sp",
+            "Dp"
+          ],
+          "src": [
+            [
+              "BM",
+              0
+            ],
+            [
+              "BM",
+              1
+            ]
+          ],
+          "dst": [
+            [
+              "MM",
+              1
+            ],
+            [
+              "MM",
+              0
+            ]
+          ],
+          "stage": 3
+        }
+      ],
+      "mr_issue": null,
+      "mr_done": {
+        "op": "W3",
+        "outs": [
+          "Y5",
+          "Y3"
+        ],
+        "dst": [
+          [
+            "OB",
+            2
+          ],
+          [
+            "OB",
+            0
+          ]
+        ]
+      },
+      "ob_r": 2,
+      "out_k": 2
+    },
+    {
+      "phase": 2,
+      "ib_w": 0,
+      "bf": [
+        {
+          "op": "U0",
+          "ins": [
+            "LL0",
+            "LL1"
+          ],
+          "outs": [
+            "Y0",
+            "D"
+          ],
+          "src": [
+            [
+              "BM",
+              4
+            ],
+            [
+              "BM",
+              7
+            ]
+          ],
+          "dst": [
+            [
+              "OB",
+              0
+            ],
+            [
+              "MM",
+              2
+            ]
+          ],
+          "stage": 3
+        },
+        {
+          "op": "U3",
+          "ins": [
+            "HH0",
+            "HH1"
+          ],
+          "outs": [
+            "SBp",
+            "DBp"
+          ],
+          "src": [
+            [
+              "BM",
+              2
+            ],
+            [
+              "BM",
+              5
+            ]
+          ],
+          "dst": [
+            [
+              "MM",
+              4
+            ],
+            [
+              "MM",
+              3
+            ]
+          ],
+          "stage": 3
+        }
+      ],
+      "mr_issue": null,
+      "mr_done": null,
+      "ob_r": 0,
+      "out_k": 3
+    },
+    {
+      "phase": 3,
+      "ib_w": null,
+      "bf": [
+        {
+          "op": "S1",
+          "ins": [
+            "x2",
+            "x3"
+          ],
+          "outs": [
+            "L1",
+            "H1"
+          ],
+          "src": [
+            [
+              "IB",
+              0
+            ],
+            [
+              "IN",
+              null
+            ]
+          ],
+          "dst": [
+            [
+              "BM",
+              3
+            ],
+            [
+              "BM",
+              2
+            ]
+          ],
+          "stage": 1
+        },
+        {
+          "op": "U2",
+          "ins": [
+            "HL0",
+            "HL1"
+          ],
+          "outs": [
+            "Y4",
+            "DB"
+          ],
+          "src": [
+            [
+              "BM",
+              3
+            ],
+            [
+              "BM",
+              6
+            ]
+          ],
+          "dst": [
+            [
+              "OB",
+              1
+            ],
+            [
+              "MM",
+              1
+            ]
+          ],
+          "stage": 3
+        }
+      ],
+      "mr_issue": {
+        "op": "V0",
+        "k": 2,
+        "ins": [
+          "Sp",
+          "D"
+        ],
+        "src": [
+          [
+            "MM",
+            1
+          ],
+          [
+            "MM",
+            2
+          ]
+        ]
+      },
+      "mr_done": null,
+      "ob_r": 1,
+      "out_k": 4
+    },
+    {
+      "phase": 4,
+      "ib_w": 0,
+      "bf": [
+        {
+          "op": "T0",
+          "ins": [
+            "L0",
+            "L1"
+          ],
+          "outs": [
+            "LL0",
+            "LH0"
+          ],
+          "src": [
+            [
+              "BM",
+              1
+            ],
+            [
+              "BM",
+              3
+            ]
+          ],
+          "dst": [
+            [
+              "BM",
+              4
+            ],
+            [
+              "BM",
+              0
+            ]
+          ],
+          "stage": 2
+        },
+        {
+          "op": "T2",
+          "ins": [
+            "H0",
+            "H1"
+          ],
+          "outs": [
+            "HH0",
+            "HL0"
+          ],
+          "src": [
+            [
+              "BM",
+              0
+            ],
+            [
+              "BM",
+              2
+            ]
+          ],
+          "dst": [
+            [
+              "BM",
+              2
+            ],
+            [
+              "BM",
+              3
+            ]
+          ],
+          "stage": 2
+        }
+      ],
+      "mr_issue": {
+        "op": "V1",
+        "k": 2,
+        "ins": [
+          "SBp",
+          "DB"
+        ],
+        "src": [
+          [
+            "MM",
+            4
+          ],
+          [
+            "MM",
+            1
+          ]
+        ]
+      },
+      "mr_done": {
+        "op": "V0",
+        "outs": [
+          "A3",
+          "A1"
+        ],
+        "dst": [
+          [
+            "MM",
+            2
+          ],
+          [
+            "MM",
+            1
+          ]
+        ]
+      },
+      "ob_r": 2,
+      "out_k": 5
+    },
+    {
+      "phase": 5,
+      "ib_w": null,
+      "bf": [
+        {
+          "op": "S2",
+          "ins": [
+            "x4",
+            "x5"
+          ],
+          "outs": [
+            "L2",
+            "H2"
+          ],
+          "src": [
+            [
+              "IB",
+              0
+            ],
+            [
+              "IN",
+              null
+            ]
+          ],
+          "dst": [
+            [
+              "BM",
+              5
+            ],
+            [
+              "BM",
+              1
+            ]
+          ],
+          "stage": 1
+        },
+        null
+      ],
+      "mr_issue": {
+        "op": "W2",
+        "k": 2,
+        "ins": [
+          "DBp",
+          "Dp"
+        ],
+        "src": [
+          [
+            "MM",
+            3
+          ],
+          [
+            "MM",
+            0
+          ]
+        ]
+      },
+      "mr_done": {
+        "op": "V1",
+        "outs": [
+          "B3",
+          "B1"
+        ],
+        "dst": [
+          [
+            "MM",
+            3
+          ],
+          [
+            "MM",
+            0
+          ]
+        ]
+      },
+      "ob_r": 3,
+      "out_k": 6
+    },
+    {
+      "phase": 6,
+      "ib_w": 0,
+      "bf": [
+        null,
+        null
+      ],
+      "mr_issue": {
+        "op": "W1",
+        "k": 1,
+        "ins": [
+          "B3",
+          "A1"
+        ],
+        "src": [
+          [
+            "MM",
+            3
+          ],
+          [
+            "MM",
+            1
+          ]
+        ]
+      },
+      "mr_done": {
+        "op": "W2",
+        "outs": [
+          "Y6",
+          "Y2"
+        ],
+        "dst": [
+          [
+            "OB",
+            3
+          ],
+          [
+            "OB",
+            2
+          ]
+        ]
+      },
+      "ob_r": 4,
+      "out_k": 7
+    },
+    {
+      "phase": 7,
+      "ib_w": null,
+      "bf": [
+        {
+          "op": "S3",
+          "ins": [
+            "x6",
+            "x7"
+          ],
+          "outs": [
+            "L3",
+            "H3"
+          ],
+          "src": [
+            [
+              "IB",
+              0
+            ],
+            [
+              "IN",
+              null
+            ]
+          ],
+          "dst": [
+            [
+              "BM",
+              7
+            ],
+            [
+              "BM",
+              6
+            ]
+          ],
+          "stage": 1
+        },
+        null
+      ],
+      "mr_issue": null,
+      "mr_done": {
+        "op": "W1",
+        "outs": [
+          "Y7",
+          "Y1"
+        ],
+        "dst": [
+          [
+            "OB",
+            4
+          ],
+          [
+            "OB",
+            0
+          ]
+        ]
+      },
+      "ob_r": 0,
+      "out_k": 0
+    }
+  ]
+}

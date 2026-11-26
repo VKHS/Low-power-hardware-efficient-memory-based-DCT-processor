@@ -1,0 +1,249 @@
+{
+  "dct8_t1_w14": {
+    "kind": "dct8",
+    "params": {
+      "B_IN": 8,
+      "W": 14,
+      "G": 3,
+      "SS1": 0,
+      "SS2": 0,
+      "SS3": 0,
+      "MR_MODE": 0
+    },
+    "mr_mode": "table1",
+    "derived": {
+      "H": 3,
+      "F": 3,
+      "E": 3
+    },
+    "n_stim": 2656,
+    "n_blocks": 326,
+    "n_expect": 2608,
+    "first_out_cycle": 16,
+    "gap_blocks": [
+      5,
+      6,
+      40
+    ]
+  },
+  "dct8_c2_w14": {
+    "kind": "dct8",
+    "params": {
+      "B_IN": 8,
+      "W": 14,
+      "G": 3,
+      "SS1": 0,
+      "SS2": 0,
+      "SS3": 0,
+      "MR_MODE": 1
+    },
+    "mr_mode": "cordic2x",
+    "derived": {
+      "H": 3,
+      "F": 3,
+      "E": 3
+    },
+    "n_stim": 2656,
+    "n_blocks": 326,
+    "n_expect": 2608,
+    "first_out_cycle": 16,
+    "gap_blocks": [
+      5,
+      6,
+      40
+    ]
+  },
+  "dct8_t1_w10ss": {
+    "kind": "dct8",
+    "params": {
+      "B_IN": 8,
+      "W": 10,
+      "G": 3,
+      "SS1": 1,
+      "SS2": 1,
+      "SS3": 1,
+      "MR_MODE": 0
+    },
+    "mr_mode": "table1",
+    "derived": {
+      "H": 0,
+      "F": 2,
+      "E": -1
+    },
+    "n_stim": 2656,
+    "n_blocks": 326,
+    "n_expect": 2608,
+    "first_out_cycle": 16,
+    "gap_blocks": [
+      5,
+      6,
+      40
+    ]
+  },
+  "dct8_c2_w12ss": {
+    "kind": "dct8",
+    "params": {
+      "B_IN": 8,
+      "W": 12,
+      "G": 2,
+      "SS1": 0,
+      "SS2": 1,
+      "SS3": 0,
+      "MR_MODE": 1
+    },
+    "mr_mode": "cordic2x",
+    "derived": {
+      "H": 2,
+      "F": 2,
+      "E": 1
+    },
+    "n_stim": 2656,
+    "n_blocks": 326,
+    "n_expect": 2608,
+    "first_out_cycle": 16,
+    "gap_blocks": [
+      5,
+      6,
+      40
+    ]
+  },
+  "dct8_t1_w8ss": {
+    "kind": "dct8",
+    "params": {
+      "B_IN": 8,
+      "W": 8,
+      "G": 3,
+      "SS1": 1,
+      "SS2": 1,
+      "SS3": 1,
+      "MR_MODE": 0
+    },
+    "mr_mode": "table1",
+    "derived": {
+      "H": 0,
+      "F": 0,
+      "E": -3
+    },
+    "n_stim": 2656,
+    "n_blocks": 326,
+    "n_expect": 2608,
+    "first_out_cycle": 16,
+    "gap_blocks": [
+      5,
+      6,
+      40
+    ]
+  },
+  "dct2d_t1": {
+    "kind": "dct2d",
+    "mr_mode": "table1",
+    "params": {
+      "B_IN": 8,
+      "W_ROW": 14,
+      "G_ROW": 3,
+      "SS1_ROW": 0,
+      "SS2_ROW": 0,
+      "SS3_ROW": 0,
+      "W_COL": 16,
+      "G_COL": 3,
+      "SS1_COL": 1,
+      "SS2_COL": 1,
+      "SS3_COL": 1,
+      "OUT_W": 12,
+      "OUT_FRAC": 0,
+      "MR_MODE": 0
+    },
+    "derived": {
+      "OUT_SHIFT": 5
+    },
+    "n_stim": 2440,
+    "n_blocks": 35,
+    "n_expect": 2240,
+    "first_out_cycle": 97,
+    "note": "*_out.txt holds X[u][v] row-major; the hardware emits columns (v-major)"
+  },
+  "dct2d_c2": {
+    "kind": "dct2d",
+    "mr_mode": "cordic2x",
+    "params": {
+      "B_IN": 8,
+      "W_ROW": 14,
+      "G_ROW": 3,
+      "SS1_ROW": 0,
+      "SS2_ROW": 0,
+      "SS3_ROW": 0,
+      "W_COL": 16,
+      "G_COL": 3,
+      "SS1_COL": 1,
+      "SS2_COL": 1,
+      "SS3_COL": 1,
+      "OUT_W": 12,
+      "OUT_FRAC": 0,
+      "MR_MODE": 1
+    },
+    "derived": {
+      "OUT_SHIFT": 5
+    },
+    "n_stim": 2440,
+    "n_blocks": 35,
+    "n_expect": 2240,
+    "first_out_cycle": 97,
+    "note": "*_out.txt holds X[u][v] row-major; the hardware emits columns (v-major)"
+  },
+  "dct2d_c2_f2": {
+    "kind": "dct2d",
+    "mr_mode": "cordic2x",
+    "params": {
+      "B_IN": 8,
+      "W_ROW": 14,
+      "G_ROW": 3,
+      "SS1_ROW": 0,
+      "SS2_ROW": 0,
+      "SS3_ROW": 0,
+      "W_COL": 16,
+      "G_COL": 3,
+      "SS1_COL": 1,
+      "SS2_COL": 1,
+      "SS3_COL": 1,
+      "OUT_W": 14,
+      "OUT_FRAC": 2,
+      "MR_MODE": 1
+    },
+    "derived": {
+      "OUT_SHIFT": 3
+    },
+    "n_stim": 2440,
+    "n_blocks": 35,
+    "n_expect": 2240,
+    "first_out_cycle": 97,
+    "note": "*_out.txt holds X[u][v] row-major; the hardware emits columns (v-major)"
+  },
+  "dct2d_t1_w10": {
+    "kind": "dct2d",
+    "mr_mode": "table1",
+    "params": {
+      "B_IN": 8,
+      "W_ROW": 10,
+      "G_ROW": 3,
+      "SS1_ROW": 1,
+      "SS2_ROW": 1,
+      "SS3_ROW": 1,
+      "W_COL": 10,
+      "G_COL": 3,
+      "SS1_COL": 1,
+      "SS2_COL": 1,
+      "SS3_COL": 1,
+      "OUT_W": 12,
+      "OUT_FRAC": 0,
+      "MR_MODE": 0
+    },
+    "derived": {
+      "OUT_SHIFT": -1
+    },
+    "n_stim": 2440,
+    "n_blocks": 35,
+    "n_expect": 2240,
+    "first_out_cycle": 97,
+    "note": "*_out.txt holds X[u][v] row-major; the hardware emits columns (v-major)"
+  }
+}

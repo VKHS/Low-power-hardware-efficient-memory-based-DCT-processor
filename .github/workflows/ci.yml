@@ -1,0 +1,58 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  python:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e "python[test]"
+      - name: Unit tests, overflow proof, schedule invariants, generated files up to date
+        run: pytest -q python/tests
+      - name: Command-line tools
+        run: |
+          python -m dct8 info
+          python -m dct8 emit --root /tmp/emit
+          diff /tmp/emit/rtl/dct8_ctrl.v rtl/dct8_ctrl.v
+          diff /tmp/emit/hls/src/dct8_sched.h hls/src/dct8_sched.h
+
+  rtl:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Icarus Verilog and Verilator
+        run: sudo apt-get update && sudo apt-get install -y iverilog verilator
+      - name: Lint (Verilator)
+        run: |
+          verilator --lint-only -Wall -Wno-fatal -Irtl rtl/*.v --top-module dct8_core
+          verilator --lint-only -Wall -Wno-fatal -Irtl rtl/*.v --top-module dct2d_8x8
+      - name: Simulate every vector set, both adder styles
+        run: python3 scripts/run_rtl.py
+
+  hls-csim:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: C simulation with the stand-in headers
+        run: python3 scripts/run_hls_csim.py
+      - name: C simulation with the official ap_int headers
+        run: |
+          git clone --depth 1 https://github.com/Xilinx/HLS_arbitrary_Precision_Types.git /tmp/ap_types
+          python3 scripts/run_hls_csim.py --ap-include /tmp/ap_types/include
+
+  octave:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install GNU Octave
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends octave
+      - name: MATLAB model against the golden vectors
+        run: octave --no-gui --eval "addpath('matlab'); run_tests"

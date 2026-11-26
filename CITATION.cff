@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this processor or code, please cite the article below."
+title: "memory-based-dct8: low-power hardware-efficient memory-based DCT processor"
+authors:
+  - family-names: "Khalili Sadaghiani"
+    given-names: "Abdolvahab"
+    orcid: "https://orcid.org/0000-0003-4870-2768"
+repository-code: "https://github.com/VKHS/memory-based-dct8"
+license: MIT
+preferred-citation:
+  type: article
+  title: "Low-power hardware-efficient memory-based DCT processor"
+  authors:
+    - family-names: "Khalili Sadaghiani"
+      given-names: "AbdolVahab"
+    - family-names: "Forouzandeh"
+      given-names: "Behjat"
+  journal: "Journal of Real-Time Image Processing"
+  volume: 19
+  start: 1105
+  end: 1121
+  year: 2022
+  doi: "10.1007/s11554-022-01243-x"
