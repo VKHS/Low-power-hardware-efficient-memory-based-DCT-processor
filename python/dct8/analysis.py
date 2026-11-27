@@ -1,7 +1,8 @@
 """Accuracy and dynamic-range analysis.
 
-* overflow proof: worst-case value of every flow-graph node and of every
-  register inside the central CORDIC unit, for any input;
+* overflow checks: extreme value of every flow-graph node and of every
+  register inside the central CORDIC unit over the input-cube corners,
+  the near-corner inputs and random inputs;
 * word-length (WL) sweeps of the 1-D processor (SQNR) and of the 2-D processor
   (PSNR against the IEEE-754 double-precision DCT);
 * image experiments: reconstruction, zonal compression (64:1, 64:3, 64:6, 64:10
@@ -68,16 +69,19 @@ def _nodes_batch(xs: np.ndarray, cfg: Config) -> dict:
         mr=lambda p, q, k: cordic2.mr_rotate(p, q, k, cfg.guard, cfg.mr_mode))
 
 
-def node_bounds(cfg: Config, n_random: int = 4000, seed: int = 0) -> dict[str, tuple[int, int]]:
+def node_bounds(cfg: Config, n_random: int = 4000, seed: int = 0,
+                xs: np.ndarray | None = None) -> dict[str, tuple[int, int]]:
     """Worst-case (min, max) of every flow-graph node, without wrap-around.
 
     Every node is a linear function of the input up to rounding, so its extremes
     are attained at the 2^8 corners of the input hyper-cube; random inputs are
-    added as a sanity check of the rounding slack.
+    added as a sanity check of the rounding slack.  ``xs`` replaces the default
+    input set (corners + random) by an explicit ``(n, 8)`` array.
     """
     lo, hi = -(1 << (cfg.b_in - 1)), (1 << (cfg.b_in - 1)) - 1
-    xs = np.vstack([corner_inputs(cfg.b_in),
-                    np.random.default_rng(seed).integers(lo, hi + 1, (n_random, 8))])
+    if xs is None:
+        xs = np.vstack([corner_inputs(cfg.b_in),
+                        np.random.default_rng(seed).integers(lo, hi + 1, (n_random, 8))])
     return {k: (int(np.min(v)), int(np.max(v))) for k, v in _nodes_batch(xs, cfg).items()}
 
 
@@ -104,15 +108,20 @@ def headroom_table(b_in: int = 8) -> list[dict]:
     return rows
 
 
-def mr_register_peaks(cfg: Config, n_random: int = 4000, seed: int = 1) -> dict[str, tuple[int, int]]:
+def mr_register_peaks(cfg: Config, n_random: int = 4000, seed: int = 1,
+                      xs: np.ndarray | None = None) -> dict[str, tuple[int, int]]:
     """Peak |value| of each internal word of the central CORDIC unit vs. its width.
 
     Returns ``{word: (peak, limit)}`` with ``limit = 2^(width-1)``; the RTL is
-    overflow-free when ``peak < limit`` for every word (``-limit`` is legal too).
+    free of overflow on the tested inputs when ``peak <= limit`` for every word
+    (``-limit`` is a legal value).
+    ``xs`` replaces the default input set (corners + random) by an explicit
+    ``(n, 8)`` array.
     """
     lo, hi = -(1 << (cfg.b_in - 1)), (1 << (cfg.b_in - 1)) - 1
-    xs = np.vstack([corner_inputs(cfg.b_in),
-                    np.random.default_rng(seed).integers(lo, hi + 1, (n_random, 8))])
+    if xs is None:
+        xs = np.vstack([corner_inputs(cfg.b_in),
+                        np.random.default_rng(seed).integers(lo, hi + 1, (n_random, 8))])
     nodes = _nodes_batch(xs, cfg)
     g, wm = cfg.guard, cfg.mr_width
     peaks: dict[str, int] = {}

@@ -11,9 +11,10 @@ Fixed-point format
 
 The input is aligned as ``x << F`` with ``F = W - B_IN - H`` fractional bits and
 ``H = 3 - sum(SS)`` headroom bits.  The flow graph's largest node is the DC sum
-(8 max|x|), halved by each SS stage, so with H headroom bits no node can
-overflow for any input (proved exhaustively by :func:`dct8.analysis.node_bounds`).
-Every output word is
+(8 max|x|), halved by each SS stage, so with H headroom bits it fills the W-bit range
+exactly (-2^(W-1) for the input -128 on every sample).  No node leaves the range on
+any of the 2^8 corner inputs, the 4^8 near-corner inputs or random inputs
+(:func:`dct8.analysis.node_bounds`, ``dct8.evidence``).  Every output word is
 
     Y_k = 2*sqrt(2) * X_k * 2**E,   E = F - sum(SS),
 
@@ -112,7 +113,7 @@ def dct8_fixed(x, cfg: Config = Config()) -> list[int]:
 
 
 def dct8_fixed_nodes(x, cfg: Config = Config()) -> dict[str, int]:
-    """All node values without wrap-around (to prove the absence of overflow)."""
+    """All node values without wrap-around (the input of the overflow checks)."""
     xi = [align_input(int(v), cfg) for v in x]
     return flowgraph.evaluate_all(
         xi,

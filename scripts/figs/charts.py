@@ -283,7 +283,7 @@ def dynamic_range(path_out) -> None:
     ax.set_xlim(-0.55, len(wlist) - 0.45)
     ax.set_ylim(-0.55, len(ss_list) - 0.45)
     ax.set_xlabel("word length W (8-bit inputs); grey: H = 3 - ΣSS does not fit")
-    ax.set_title("No overflow for any input (✓: von Neumann SS rounding)", loc="left")
+    ax.set_title("No overflow on the tested inputs (✓: von Neumann SS rounding)", loc="left")
     ax.grid(False)
     for s in ax.spines.values():
         s.set_visible(False)

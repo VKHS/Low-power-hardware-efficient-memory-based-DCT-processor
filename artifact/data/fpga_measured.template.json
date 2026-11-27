@@ -1,0 +1,28 @@
+{
+  "_how_to_fill": [
+    "1. Run the synthesis flow of this repository (Vivado, Artix-7 XC7A25T):",
+    "     vivado -mode batch -source scripts/vivado_synth.tcl                              (dct8_core, W = 14, Table 1 micro-rotations, 6.9 ns clock)",
+    "     vivado -mode batch -source scripts/vivado_synth.tcl -tclargs dct8_core 14 1 6.9  (the same with the CORDIC-II unit)",
+    "2. Copy this file to artifact/data/fpga_measured.json and replace every null with the value read from the reports in build/vivado_dct8_core_w14_m<mode>/ :",
+    "     lut       utilization.rpt, row 'Slice LUTs', column Used",
+    "     ff        utilization.rpt, row 'Slice Registers', column Used",
+    "     dsp       utilization.rpt, row 'DSPs', column Used",
+    "     fmax_mhz  timing.rpt, Design Timing Summary: 1000 / (clock period in ns - WNS in ns); the period is the last argument of the run (6.9 by default)",
+    "     power_mw  power.rpt, 'Total On-Chip Power (W)' times 1000 (default switching activity)",
+    "     tool      the Vivado version that ran, for example 'Vivado 2024.2'",
+    "     config    what was run, for example 'dct8_core W=14 MR_MODE=0 SS=000, 6.9 ns clock, out of context'",
+    "     wl        the word length W of the run",
+    "3. Rebuild the page:  python3 scripts/make_artifact.py --assemble",
+    "   The build stops with a message if a field is missing, empty or of the wrong kind; the red 'pending' row of the FPGA table is replaced by the measured row.",
+    "   The keys that start with an underscore are ignored."
+  ],
+  "device": "Artix-7 XC7A25T",
+  "tool": null,
+  "config": null,
+  "wl": null,
+  "lut": null,
+  "ff": null,
+  "dsp": null,
+  "fmax_mhz": null,
+  "power_mw": null
+}

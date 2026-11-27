@@ -175,7 +175,7 @@ def flow(path_out) -> None:
               5.85, HL_FILL, HL_EDGE),
              ("matlab/", "MATLAB / Octave bit-accurate model\nand self-checking run_tests.m",
               4.25, MEM_FILL, MEM_EDGE),
-             ("python/tests/", "overflow proof, schedule invariants,\naccuracy, artifacts up to date",
+             ("python/tests/", "overflow checks, schedule invariants,\naccuracy, artifacts up to date",
               2.65, P_FILL, P_EDGE)]
     for nm, d, yy, fc, ec in impls:
         box(ax, 12.1, yy, 4.7, 1.25, "", fill=fc, edge=ec)

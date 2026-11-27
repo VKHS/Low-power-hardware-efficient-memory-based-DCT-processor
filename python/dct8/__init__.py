@@ -11,7 +11,7 @@ schedule    exact modulo schedule, value lifetimes, memory-bank allocation, micr
 machine     cycle-accurate model (register-for-register equivalent of the RTL)
 dct2d       8x8 2-D processor: two 1-D processors + single 64-word transpose buffer
 scalable    N-point radix-2 recursion and the 16-point processor (Table 5 CORDIC array)
-analysis    overflow proof, word-length sweeps, image and compression experiments
+analysis    overflow checks, word-length sweeps, image and compression experiments
 vectors     golden vectors for the RTL / HLS / MATLAB test benches
 cost        architecture-level operator and register counts
 emit        generators of rtl/dct8_ctrl.v, rtl/dct8_sched_params.vh, hls/src/dct8_sched.h

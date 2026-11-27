@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Evidence for the memory-based DCT processor</title>
+<style>
+/*{{CSS}}*/
+</style>
+</head>
+<body data-build="{{BUILD_ID}}" data-live="pending">
+<a class="skip" href="#main">Skip to content</a>
+<div class="top"><div class="top-in">
+  <span class="brand">DCT8 evidence</span>
+  <nav class="nav" aria-label="Sections">
+    <a href="#claims">Claims</a><a href="#verify">Re-run here</a><a href="#accuracy">Accuracy</a>
+    <a href="#range">Range</a><a href="#schedule">Schedule</a><a href="#cost">Cost</a>
+    <a href="#hardware">Hardware</a><a href="#reproduce">Reproduce</a>
+  </nav>
+  <button class="btn" id="theme" type="button" aria-label="Colour theme">Theme: auto</button>
+</div></div>
+
+<main id="main">
+  <section class="hero" id="top">
+    <h1>Low-power hardware-efficient memory-based DCT processor</h1>
+    <p class="cite" id="cite"></p>
+    <div class="hero-stat" id="hero"></div>
+    <p class="lede" id="hero-lede"></p>
+  </section>
+
+  <section id="claims">
+    <h2>Claims and how each one is established</h2>
+    <p class="lede">Every number on this page is computed by the repository's own code, or quoted from the paper and marked as quoted. The basis column says which.</p>
+    <div class="card" id="claims-card"></div>
+  </section>
+
+  <section id="verify">
+    <h2>Re-run in this browser</h2>
+    <p class="lede">These checks run when the page opens, with code written for this page (<code>model.js</code>, <code>sched.js</code>, <code>sha256.js</code>) and the vector files embedded in it. They share no code with the Python models.</p>
+    <div id="verify-body"></div>
+  </section>
+
+  <section id="accuracy">
+    <h2>Accuracy</h2>
+    <p class="lede">All errors are measured against double-precision references: SQNR for the 1-D transform, PSNR for the 8×8 transform on images.</p>
+    <div id="accuracy-body"></div>
+  </section>
+
+  <section id="range">
+    <h2>Dynamic range</h2>
+    <p class="lede">Safe scaling and headroom bits are chosen so that no flow-graph node and no CORDIC register leaves its word.</p>
+    <div id="range-body"></div>
+  </section>
+
+  <section id="schedule">
+    <h2>Schedule and memory</h2>
+    <p class="lede">One butterfly unit pair and one CORDIC unit process a block every 8 cycles. The schedule file is the single source of the control words in the RTL and the HLS kernels.</p>
+    <div id="schedule-body"></div>
+  </section>
+
+  <section id="cost">
+    <h2>Cost and design space</h2>
+    <div id="cost-body"></div>
+  </section>
+
+  <section id="hardware">
+    <h2>FPGA figures</h2>
+    <div id="hardware-body"></div>
+  </section>
+
+  <section id="reproduce">
+    <h2>Reproduce</h2>
+    <div id="reproduce-body"></div>
+  </section>
+</main>
+<footer id="foot"></footer>
+
+<script type="application/json" id="evidence">{{EVIDENCE_JSON}}</script>
+<script type="application/json" id="vectors">{{VECTORS_JSON}}</script>
+<script type="application/json" id="fpga">{{FPGA_JSON}}</script>
+<script>
+/*{{JS}}*/
+</script>
+</body>
+</html>

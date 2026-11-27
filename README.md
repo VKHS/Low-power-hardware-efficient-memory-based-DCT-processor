@@ -28,14 +28,14 @@ the **16-point extension**, golden test vectors, figures and a smoke test.
 | storage | 19 words: input buffer 1, butterfly buffers M_B 8, memory bank 5, output buffer 5 |
 | control | a 3-bit phase counter and four small decoders (generated from the schedule) |
 | micro-rotations | the paper's Table 1 (10+j2, 50+j21, 50+j33) or an extended CORDIC-II unit |
-| word length | any W ≥ 8 for 8-bit inputs, overflow-free for every input |
-| verification | Python, RTL (two adder styles), HLS and MATLAB agree bit for bit on 9 vector sets |
+| word length | W = 8 … 16 for 8-bit inputs; no node and no CORDIC register leaves its range on the 69,536 test inputs of every configuration |
+| verification | Python, RTL (two adder styles), HLS and MATLAB agree bit for bit on 9 vector sets; [results page](artifact/index.html) with the evidence behind every number |
 
 **Contents** · [Quick start](#quick-start) · [Algorithm](#algorithm) ·
 [Architecture](#architecture) · [Schedule](#schedule-and-memory) ·
 [Fixed point](#fixed-point-design) · [CORDIC unit](#central-cordic-unit) ·
 [Results](#results) · [2-D](#88-2-d-processor) · [16-point](#16-point-extension) ·
-[Verification](#verification) · [Implementations](#implementations) ·
+[Verification](#verification) · [Results page](#results-page) · [Implementations](#implementations) ·
 [Layout](#repository-layout) · [Citation](#citation)
 
 ---
@@ -51,11 +51,13 @@ pip install -e "python[test]"
 
 | command | what it runs |
 |---|---|
-| `make python` | 94 pytest cases: rounding, flow graph, both CORDIC modes, overflow proof, schedule invariants, cycle models, generated files up to date |
+| `make python` | 114 pytest cases: rounding, flow graph, both CORDIC modes, overflow checks, schedule invariants, cycle models, generated files and results-page data up to date |
 | `make hls` | C simulation of the HLS kernels against all 9 vector sets (g++) |
 | `make rtl` | Icarus Verilog simulation of all 9 vector sets, both adder styles |
 | `make matlab` | the MATLAB/Octave model against the same vectors |
 | `make figures` / `make report` | regenerate `figures/` and [`docs/results.md`](docs/results.md) |
+| `make artifact` | recompute the data of the [results page](artifact/index.html), rebuild it and run its JavaScript checks |
+| `make artifact-check` | fail if the committed data or page differ from a fresh run, then run the JavaScript checks |
 
 ```python
 from dct8 import Config, dct8_fixed, dct8_approx
@@ -177,10 +179,15 @@ discarded bit OR-ed into the LSB. It costs no adder, is unbiased, and can never 
 `2^(W−1) − ½` up to `2^(W−1)`. With round-half-to-even, four configurations with no
 fractional input bit (F = 0) exceed the range by one LSB at extreme inputs and wrap
 around (panel b). With the
-von Neumann SS units, all 120 configurations — W = 8 … 16, every valid safe-scaling
-choice, both CORDIC modes — have no overflow in any flow-graph node or CORDIC register
-(`python/tests/test_processor.py::test_no_overflow_anywhere`). The CORDIC unit rounds
-half to even.
+von Neumann SS units, none of the 120 configurations — W = 8 … 16, every valid safe-scaling
+choice, both CORDIC modes — overflows in any flow-graph node or CORDIC register on
+the 2^8 corner inputs, the 4^8 near-corner inputs {−128, −127, 126, 127}^8 or 4,000
+random inputs (`python/tests/test_processor.py::test_no_overflow_anywhere`,
+`python/tests/test_evidence.py::test_overflow_scan_is_clean`). This is a test, not a
+formal proof. The word lengths are tight: in every configuration the tightest node
+reaches its limit exactly, and aligning the input one bit higher makes 18 of the 42
+nodes leave their range (`test_overflow_scan_can_fail`). The CORDIC unit rounds half
+to even.
 
 ## Central CORDIC unit
 
@@ -219,10 +226,13 @@ MATLAB implementations reproduce bit for bit. Full tables: [`docs/results.md`](d
 
 ![Accuracy versus word length](figures/accuracy_wordlength.png)
 
-* **(a) 1-D, random 8-bit inputs.** With Table 1 micro-rotations the SQNR saturates at
-  45.7 dB from W = 11 on: the angle errors of the three Gaussian integers dominate
-  (panel c: rotated outputs only). The CORDIC-II unit stays within about 1 dB of the
-  exact-rotation datapath up to W = 12 and reaches 71.7 dB.
+* **(a) 1-D, random 8-bit inputs.** With Table 1 micro-rotations the SQNR levels off at
+  45.72 dB (45.33 dB at W = 11, 45.72 dB from W = 14 on): the same flow graph evaluated
+  in floating point with the realised rotation coefficients gives 45.72 dB, so the plateau
+  is the angle and gain error of the three Gaussian integers (panel c: rotated outputs
+  only). The CORDIC-II unit stays within 1.1 dB of the exact-rotation datapath up to
+  W = 12 and reaches 71.68 dB at W = 16 (floating-point limit of its rotation set:
+  71.86 dB).
 * **(b) 2-D, eight test images.** PSNR of the processor's 2-D DCT against the
   IEEE-754 double-precision DCT (peak 255), both passes at word length W:
 
@@ -232,9 +242,14 @@ MATLAB implementations reproduce bit for bit. Full tables: [`docs/results.md`](d
   | CORDIC-II extension | 34.7 dB | 47.4 dB | 59.8 dB | 72.2 dB | 83.7 dB |
   | paper, Table 3 (BSD-100 images, as reported) | 6.02 dB | 17.01 dB | 32.60 dB | 43.24 dB | 56.51 dB |
 
-  The test images differ (scikit-image samples here, BSD-100 in the paper); at short
-  word lengths the difference comes from the overflow-free scaling with von Neumann
-  SS rounding of this implementation.
+  The test images differ (scikit-image samples here, BSD-100 in the paper), and Table 3
+  does not state how its word length WL is split into integer and fraction bits. At
+  each WL the ten rows of Table 3 lie within 1.08 dB of each other, so in that table the
+  PSNR follows the word length (6.3 dB per bit for the proposed method); here it rises by
+  6.2 dB (Table 1) and 6.3 dB (CORDIC-II) per bit between W = 8 and 12. Interpolated on
+  the curves above, the PSNR of Table 3 at WL 16 and 14 is reached 4.5 to 4.7 bits
+  earlier here; the paper's values at WL 12, 10 and 8 are below the W = 8 point.
+  [`artifact/index.html`](artifact/index.html) draws both on one scale.
 
 ![Zonal compression](figures/zonal_compression.png)
 
@@ -311,6 +326,36 @@ CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs pytest, Verilat
 Icarus simulation, the HLS C simulation with both the stand-in and the official
 `ap_int` headers, and Octave on every push.
 
+## Results page
+
+[`artifact/index.html`](artifact/index.html) is one self-contained page (no network
+access, no other file) that shows the results together with the evidence behind them.
+Download it and open it in a browser.
+
+* **14 claims**, each with the data it rests on, the command that reproduces it and a
+  label for its basis: computed in the build, checked by a CI job, quoted from the
+  paper, or pending a measurement. The repository's own FPGA figures (LUT, FF, clock,
+  power) are pending until `scripts/vivado_synth.tcl` has been run; the page shows the
+  paper's Table 2 as quoted and marks the cells awaiting measurement in red.
+* **Checks that run when the page opens**, with a second implementation in JavaScript
+  (`artifact/src/model.js`, `sched.js`, `sha256.js`) that shares no code with
+  `python/dct8`: the nine golden vector sets are hashed and replayed through a model of
+  both processors and both rotation units; eight deliberate arithmetic faults show that
+  the vectors notice a wrong rounding rule or constant; the schedule is checked from
+  `vectors/schedule.json` alone (9 checks, 10 injected faults).
+* **Accuracy** (1-D SQNR, 8×8 PSNR, zonal compression, the paper's Table 3 beside the
+  curves of this repository), the **overflow scan**, the **schedule and memory** diagrams,
+  **cost**, the **design space** of the rotation unit and the 16-point extension.
+
+```bash
+make artifact                              # recompute the data, rebuild the page, run the JavaScript checks
+make artifact-check                        # fail if the committed data or page differ from a fresh run
+node artifact/tests/selfcheck.js artifact/index.html   # the JavaScript checks alone
+```
+
+CI runs the comparison and the JavaScript checks, and loads the page in headless Chrome,
+where every in-browser check must pass.
+
 ## Implementations
 
 ### Python — `python/dct8`
@@ -323,7 +368,8 @@ Icarus simulation, the HLS C simulation with both the stand-in and the official
 | `processor` | `Config`, `dct8_fixed`, `dct8_fixed_batch`, `dct8_approx` |
 | `schedule`, `machine`, `emit` | modulo schedule and register allocation; cycle-accurate model; RTL/HLS generators |
 | `dct2d`, `scalable` | 2-D processor (functional + cycle-accurate); N-point recursion and the 16-point processor |
-| `analysis`, `cost`, `vectors` | overflow proof, word-length and image experiments; cost; golden vectors |
+| `analysis`, `cost`, `vectors` | overflow checks, word-length and image experiments; cost; golden vectors |
+| `evidence` | the numbers, second-route cross-checks and negative controls behind the results page |
 
 `python -m dct8 info | emit | vectors | schedule` prints the CORDIC tables, the schedule
 and the cost, or regenerates the generated files.
@@ -376,7 +422,8 @@ word-length tables and shows zonal compression of an image.
 ├── vectors/            golden vectors (9 configurations) and manifest.json
 ├── figures/            all figures (scripts/make_figures.py)
 ├── docs/results.md     measured results (scripts/report.py)
-├── scripts/            smoke test, RTL and HLS runners, figures, report, Vivado synthesis
+├── artifact/           results page (index.html), its sources, data and JavaScript checks
+├── scripts/            smoke test, RTL and HLS runners, figures, report, results page, Vivado synthesis
 └── .github/workflows/  CI
 ```
 

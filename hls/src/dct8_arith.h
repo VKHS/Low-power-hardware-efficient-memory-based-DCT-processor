@@ -68,7 +68,7 @@ inline void bf_core(const ap_int<W> a, const ap_int<W> b, const bool scale,
         s = rno1<W + 1>(s);
         d = rno1<W + 1>(d);
     }
-    sum = s;      // W bits: never overflows (headroom H = 3 - SS1 - SS2 - SS3)
+    sum = s;      // W bits: the headroom H = 3 - SS1 - SS2 - SS3 keeps every node in range
     diff = d;
 }
 

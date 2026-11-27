@@ -1,4 +1,4 @@
-"""Bit-accurate 1-D model: accuracy, scaling and the overflow-freedom of every configuration."""
+"""Bit-accurate 1-D model: accuracy, scaling and the overflow checks of every configuration."""
 import numpy as np
 import pytest
 
@@ -37,7 +37,7 @@ def test_dc_of_full_scale_input_is_exact():
 @pytest.mark.parametrize("mode", cordic2.MODES)
 @pytest.mark.parametrize("w", range(8, 17))
 def test_no_overflow_anywhere(mode, w):
-    """Every node and every CORDIC register stays in range for every input."""
+    """No node and no CORDIC register leaves its range on corner and random inputs."""
     for ss in analysis.valid_ss(8, w):
         cfg = Config(8, w, 3, ss, mode)
         lo, hi = -(1 << (w - 1)), (1 << (w - 1)) - 1

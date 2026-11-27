@@ -1,7 +1,7 @@
 # Convenience targets (each one is a thin wrapper around a script)
 PY ?= python3
 
-.PHONY: all smoke test python rtl hls matlab emit vectors figures report clean
+.PHONY: all smoke test python rtl hls matlab emit vectors figures report artifact artifact-check clean
 
 all: test
 
@@ -10,7 +10,7 @@ smoke:                 ## everything the installed tools can run
 
 test: python hls rtl matlab
 
-python:                ## unit tests, overflow proof, schedule invariants
+python:                ## unit tests, overflow checks, schedule invariants
 	$(PY) -m pytest -q python/tests
 
 rtl:                   ## Icarus Verilog, every vector set, both adder styles
@@ -33,6 +33,14 @@ figures:               ## regenerate figures/
 
 report:                ## regenerate docs/results.md
 	$(PY) scripts/report.py > docs/results.md
+
+artifact:              ## recompute the data of the results page (about 70 s), rebuild it, run its JavaScript checks
+	$(PY) scripts/make_artifact.py
+	node artifact/tests/selfcheck.js artifact/index.html
+
+artifact-check:        ## fail if the committed data or page differ from a fresh run, run the JavaScript checks
+	$(PY) scripts/make_artifact.py --check
+	node artifact/tests/selfcheck.js artifact/index.html
 
 clean:
 	rm -rf build python/.pytest_cache

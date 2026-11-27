@@ -15,7 +15,7 @@ jobs:
           python-version: "3.12"
       - name: Install
         run: pip install -e "python[test]"
-      - name: Unit tests, overflow proof, schedule invariants, generated files up to date
+      - name: Unit tests, overflow checks, schedule invariants, generated files up to date
         run: pytest -q python/tests
       - name: Command-line tools
         run: |
@@ -23,6 +23,29 @@ jobs:
           python -m dct8 emit --root /tmp/emit
           diff /tmp/emit/rtl/dct8_ctrl.v rtl/dct8_ctrl.v
           diff /tmp/emit/hls/src/dct8_sched.h hls/src/dct8_sched.h
+
+  artifact:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install
+        run: pip install -e "python[test]"
+      - name: Results page - evidence and page equal a fresh run
+        run: python scripts/make_artifact.py --check
+      - name: Results page - JavaScript checks against the vectors
+        run: node artifact/tests/selfcheck.js artifact/index.html
+      - name: Results page - every in-browser check passes (headless Chrome)
+        run: |
+          timeout 300 google-chrome --headless=new --no-sandbox --disable-gpu \
+            --virtual-time-budget=60000 --dump-dom "file://$PWD/artifact/index.html" > /tmp/dom.html
+          grep -o '<body[^>]*>' /tmp/dom.html
+          grep -q 'data-live="pass"' /tmp/dom.html
 
   rtl:
     runs-on: ubuntu-24.04

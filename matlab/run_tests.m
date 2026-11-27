@@ -51,7 +51,7 @@ for i = 1:size(cases, 1)
     nfail = nfail + report(sprintf('accuracy W=%-2d SS=%d%d%d %-8s rms %.4f < %.2f', ...
         cfg.w, cfg.ss, cfg.mode, rms, cases{i, 6}), rms < cases{i, 6});
 end
-% full-scale DC is exact and never overflows
+% full-scale negative DC lands exactly on -2^(W-1)
 cfg = dct8_cfg(8, 8, 3, [1 1 1], 'table1');
 y = dct8_fixed(-128 * ones(1, 8), cfg);
 nfail = nfail + report('full-scale DC = -2^(W-1), AC = 0', isequal(y, [-128 0 0 0 0 0 0 0]));
